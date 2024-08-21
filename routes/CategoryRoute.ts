@@ -1,10 +1,15 @@
 import express from 'express';
+import fileDb from "../fileDB";
 
-const guestbookRouter = express.Router();
-guestbookRouter.use(express.json());
+const CategoryRouter = express.Router();
+CategoryRouter.use(express.json());
 
 
-guestbookRouter.get('/', async (req, res) => {
-    res.send('all info of category')
+CategoryRouter.get('/', async (req, res) => {
+
+    await fileDb.init('category');
+    const allMessages = await fileDb.getItems('category');
+
+    res.send(allMessages)
 });
-export default guestbookRouter;
+export default CategoryRouter;
