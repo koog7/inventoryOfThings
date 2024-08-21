@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "d9262493-dce3-4149-9564-c0d97ab095f7",
+    "category": "CPU",
+    "description": "test"
+  },
+  {
+    "id": "226f6569-764e-454a-8d3e-93303e5c6505",
+    "category": "CPU1",
+    "description": "tes1t"
+  }
+]

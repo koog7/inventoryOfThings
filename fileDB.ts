@@ -1,18 +1,23 @@
 import { promises as fs } from 'fs';
+import path from 'path';
 
+const location = path.join(__dirname, 'database', 'locationDB.json');
+const category = path.join(__dirname, 'database', 'categoryDB.json');
+const accounting = path.join(__dirname, 'database', 'accountingDB.json');
 
-const location = './database/locationDB.json';
-const category = './database/categoryDB.json';
-const accounting = './database/accountingDB.json';
+console.log('Location path:', location);
+console.log('Category path:', category);
+console.log('Accounting path:', accounting);
+
 
 interface Location {
     id: string;
-    name: string;
+    location: string;
     description?: string;
 }
 interface Category {
     id: string;
-    name: string;
+    category: string;
     description?: string;
 }
 interface Item {
@@ -79,11 +84,11 @@ const fileDb = {
     },
     async save(name: DataType) {
         if(name === 'location'){
-            return fs.writeFile(name, JSON.stringify(locationData , null , 2));
+            return fs.writeFile(location, JSON.stringify(locationData , null , 2));
         }else if(name === 'category'){
-            return fs.writeFile(name, JSON.stringify(categoryData , null , 2));
+            return fs.writeFile(category, JSON.stringify(categoryData , null , 2));
         } else if(name === 'accounting'){
-            return fs.writeFile(name, JSON.stringify(accountingData , null , 2));
+            return fs.writeFile(accounting, JSON.stringify(accountingData , null , 2));
         }
 
     }
