@@ -1,6 +1,5 @@
 import express from 'express';
 import fileDb from "../fileDB";
-import {randomUUID} from "node:crypto";
 import {imagesUpload} from "../multer";
 
 const AccountingRouter = express.Router();
@@ -13,12 +12,28 @@ AccountingRouter.get('/', async (req, res) => {
 
     res.send(allMessages)
 });
+
+AccountingRouter.get('/:id', async (req, res) => {
+    await fileDb.init('accounting');
+    const {id} = req.params;
+
+    const allMessages = await fileDb.getItems('accounting') || [];
+    const getMsgById = allMessages.filter(x => x.id === id);
+
+    if(getMsgById.length > 0){
+        res.send(getMsgById)
+    }else{
+        res.send('Not found')
+    }
+
+});
+
 AccountingRouter.post('/', imagesUpload.single('photo'), async (req, res) => {
     await fileDb.init('accounting');
     const { categoryId , locationId , name } = req.body;
 
     if(!categoryId || !locationId || !name){
-        return res.status(400).send('error')
+        return res.status(400).send('some of field are empty')
     }
     const allMessages = await fileDb.getItems('accounting') || [];
 

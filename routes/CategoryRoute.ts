@@ -1,6 +1,5 @@
 import express from 'express';
 import fileDb from "../fileDB";
-import {randomUUID} from "node:crypto";
 
 const CategoryRouter = express.Router();
 CategoryRouter.use(express.json());
@@ -12,6 +11,22 @@ CategoryRouter.get('/', async (req, res) => {
     const allMessages = await fileDb.getItems('category');
 
     res.send(allMessages)
+});
+
+CategoryRouter.get('/:id', async (req, res) => {
+    await fileDb.init('category');
+    const {id} = req.params;
+
+
+    const allMessages = await fileDb.getItems('category') || [];
+    const getMsgById = allMessages.filter(x => x.id === id);
+
+    if(getMsgById.length > 0){
+        res.send(getMsgById)
+    }else{
+        res.send('Not found')
+    }
+
 });
 
 CategoryRouter.post('/', async (req, res) => {

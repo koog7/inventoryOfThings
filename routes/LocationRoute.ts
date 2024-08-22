@@ -1,6 +1,5 @@
 import express from 'express';
 import fileDb from "../fileDB";
-import {randomUUID} from "node:crypto";
 
 const LocationRouter = express.Router();
 LocationRouter.use(express.json());
@@ -11,6 +10,21 @@ LocationRouter.get('/', async (req, res) => {
     const allMessages = await fileDb.getItems('location');
 
     res.send(allMessages)
+});
+
+LocationRouter.get('/:id', async (req, res) => {
+    await fileDb.init('location');
+    const {id} = req.params;
+
+    const allMessages = await fileDb.getItems('location') || [];
+    const getMsgById = allMessages.filter(x => x.id === id);
+
+    if(getMsgById.length > 0){
+        res.send(getMsgById)
+    }else{
+        res.send('Not found')
+    }
+
 });
 
 LocationRouter.post('/', async (req, res) => {
