@@ -5,11 +5,6 @@ const location = path.join(__dirname, 'database', 'locationDB.json');
 const category = path.join(__dirname, 'database', 'categoryDB.json');
 const accounting = path.join(__dirname, 'database', 'accountingDB.json');
 
-console.log('Location path:', location);
-console.log('Category path:', category);
-console.log('Accounting path:', accounting);
-
-
 interface Location {
     id: string;
     location: string;
