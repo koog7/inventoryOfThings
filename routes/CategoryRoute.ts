@@ -22,8 +22,17 @@ CategoryRouter.post('/', async (req, res) => {
         return res.status(400).send('error')
     }
 
+    const allMessages = await fileDb.getItems('category') || [];
+
+    const idCheck = new Set(allMessages.map(message => message.id));
+    let idNew = allMessages.length + 1;
+
+    while (idCheck.has(`${idNew}`)) {
+        idNew++;
+    }
+
     const messages = {
-        id: randomUUID(),
+        id: `${idNew}`,
         category : req.body.category,
         description: req.body.description ? req.body.description : null,
     }

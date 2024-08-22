@@ -1,18 +1,26 @@
 [
   {
-    "id": "c71f4999-c5d1-4da4-bd86-098f05db9e75",
+    "id": "1",
     "categoryId": "1",
     "locationId": "2",
     "name": "just text",
     "description": "descr of item",
-    "photo": "images1c7ab3d7-25cc-4748-991e-e7d3facfa887.jpg"
+    "photo": "imagesa47e4251-54ca-4c5b-91c7-4f0e3ed9971f.jpg"
   },
   {
-    "id": "5338f2ca-9ff9-4e9d-970d-f8d4ee4dd867",
+    "id": "3",
     "categoryId": "1",
     "locationId": "2",
     "name": "just text",
     "description": "descr of item",
-    "photo": "images62241d73-4115-47d0-b982-8a6b55934522.jpg"
+    "photo": "imagesbf4bd040-e568-40cc-848b-6ba2c8c45344.jpg"
+  },
+  {
+    "id": "4",
+    "categoryId": "1",
+    "locationId": "2",
+    "name": "just text",
+    "description": "descr of item",
+    "photo": "imagesa783ca88-f26e-4df4-9212-e76e9939709a.jpg"
   }
 ]

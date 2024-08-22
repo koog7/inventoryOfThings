@@ -20,9 +20,17 @@ AccountingRouter.post('/', imagesUpload.single('photo'), async (req, res) => {
     if(!categoryId || !locationId || !name){
         return res.status(400).send('error')
     }
+    const allMessages = await fileDb.getItems('accounting') || [];
+
+    const idCheck = new Set(allMessages.map(message => message.id));
+    let idNew = allMessages.length + 1;
+
+    while (idCheck.has(`${idNew}`)) {
+        idNew++;
+    }
 
     const messages = {
-        id: randomUUID(),
+        id: `${idNew}`,
         categoryId : req.body.categoryId,
         locationId: req.body.locationId,
         name: req.body.name,
@@ -32,8 +40,6 @@ AccountingRouter.post('/', imagesUpload.single('photo'), async (req, res) => {
 
     await fileDb.addItem(messages , 'accounting');
 
-    const allMessages = await fileDb.getItems('accounting');
-
-    res.send(allMessages)
+    res.send(messages)
 });
 export default AccountingRouter;

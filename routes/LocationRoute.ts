@@ -14,15 +14,24 @@ LocationRouter.get('/', async (req, res) => {
 });
 
 LocationRouter.post('/', async (req, res) => {
-    await fileDb.init('category');
+    await fileDb.init('location');
     const { location } = req.body;
 
     if(!location){
         return res.status(400).send('error')
     }
 
+    const allMessages = await fileDb.getItems('location') || [];
+
+    const idCheck = new Set(allMessages.map(message => message.id));
+    let idNew = allMessages.length + 1;
+
+    while (idCheck.has(`${idNew}`)) {
+        idNew++;
+    }
+
     const messages = {
-        id: randomUUID(),
+        id: `${idNew}`,
         location : req.body.location,
         description: req.body.description ? req.body.description : null,
     }
