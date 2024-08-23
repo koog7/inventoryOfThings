@@ -83,6 +83,11 @@ const fileDb = {
 
         if (name === 'location') {
             dataArray = locationData;
+
+            const index = locationData.findIndex(item => item.id === id);
+
+            locationData.splice(index, 1);
+            await this.save(name);
         } else if (name === 'category') {
             dataArray = categoryData;
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import fileDb from "../fileDB";
+import CategoryRouter from "./CategoryRoute";
 
 const LocationRouter = express.Router();
 LocationRouter.use(express.json());
@@ -53,6 +54,31 @@ LocationRouter.post('/', async (req, res) => {
     await fileDb.addItem(messages , "location");
 
     res.send(messages)
+});
+
+
+LocationRouter.delete('/:id', async (req, res) => {
+    await fileDb.init('location');
+    await fileDb.init('accounting')
+    const {id} = req.params;
+
+    const accountingDB = await fileDb.getItems('accounting') || [];
+
+    const isCategoryLinked = accountingDB.some(item => {
+        if ('locationId' in item) {
+            return item.locationId === id;
+        }else{
+            return false;
+        }
+    });
+
+    if(!isCategoryLinked){
+        await fileDb.removeItem(id , 'location')
+        res.send('Success delete')
+    }else{
+        res.send('cant be deleted')
+    }
+
 });
 
 export default LocationRouter;
