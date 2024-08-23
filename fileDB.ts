@@ -22,6 +22,7 @@ export interface Item {
     name: string;
     description?: string;
     photo?: string | null;
+    date?: string;
 }
 
 

@@ -53,6 +53,7 @@ AccountingRouter.post('/', imagesUpload.single('photo'), async (req, res) => {
         name: req.body.name,
         description: req.body.description ? req.body.description : null,
         photo: req.file ? req.file.filename : null,
+        date: req.body.date ? req.body.date : null,
     }
 
     await fileDb.addItem(messages , 'accounting');
