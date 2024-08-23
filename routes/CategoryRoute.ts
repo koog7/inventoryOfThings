@@ -56,4 +56,28 @@ CategoryRouter.post('/', async (req, res) => {
 
     res.send(messages)
 });
+
+CategoryRouter.delete('/:id', async (req, res) => {
+    await fileDb.init('category');
+    await fileDb.init('accounting')
+    const {id} = req.params;
+
+    const accountingDB = await fileDb.getItems('accounting') || [];
+
+    const isCategoryLinked = accountingDB.some(item => {
+        if ('categoryId' in item) {
+            return item.categoryId === id;
+        }else{
+            return false;
+        }
+    });
+
+    if(!isCategoryLinked){
+        await fileDb.removeItem(id , 'category')
+        res.send('Success delete')
+    }else{
+        res.send('cant be deleted')
+    }
+
+});
 export default CategoryRouter;

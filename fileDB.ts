@@ -85,6 +85,11 @@ const fileDb = {
             dataArray = locationData;
         } else if (name === 'category') {
             dataArray = categoryData;
+
+            const index = categoryData.findIndex(item => item.id === id);
+
+            categoryData.splice(index, 1);
+            await this.save(name);
         } else if (name === 'accounting') {
             dataArray = accountingData;
 
@@ -94,7 +99,6 @@ const fileDb = {
                 throw new Error('item not found');
             }
             dataArray.splice(index, 1);
-
             await this.save(name);
         }
     },
