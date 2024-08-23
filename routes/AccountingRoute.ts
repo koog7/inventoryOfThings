@@ -14,7 +14,7 @@ AccountingRouter.get('/', async (req, res) => {
 
     const getSpecificKeys = allMessages.map(message => {
         if ('name' in message) {
-            return { id: message.id, name: message.name };
+            return { id: message.id, name: message.name , categoryId : message.categoryId , locationId : message.locationId};
         }
     });
 
