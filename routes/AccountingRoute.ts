@@ -1,6 +1,8 @@
 import express from 'express';
-import fileDb from "../fileDB";
+import fileDb, {Item} from "../fileDB";
 import {imagesUpload} from "../multer";
+import fs from 'fs/promises';
+
 
 const AccountingRouter = express.Router();
 AccountingRouter.use(express.json());
@@ -57,4 +59,36 @@ AccountingRouter.post('/', imagesUpload.single('photo'), async (req, res) => {
 
     res.send(messages)
 });
+
+
+AccountingRouter.delete('/:id', async (req, res) => {
+    await fileDb.init('accounting');
+    const {id} = req.params;
+
+    try{
+        const allMessages = await fileDb.getItems('accounting') || [];
+        const resource = allMessages.find(message => message.id === id);
+
+        if (!resource) {
+            return res.status(404).send('resource not found');
+        }
+
+        const item = resource as Item;
+        const photoName = item.photo;
+        const itemId = item.id
+
+        if (photoName) {
+            try {
+                await fs.unlink(`./public/images/${photoName}`);
+            } catch (e) {
+                console.log(`failed to delete ${e}`);
+            }
+        }
+        await fileDb.removeItem(itemId ,'accounting')
+        res.send(`successful deleted`)
+    }catch (e){
+        res.send(e)
+    }
+});
+
 export default AccountingRouter;

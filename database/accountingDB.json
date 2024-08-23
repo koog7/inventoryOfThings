@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "1",
+    "categoryId": "1",
+    "locationId": "2",
+    "name": "test name",
+    "description": "descr of item",
+    "photo": "imagese4aa425e-f959-4cfd-b218-483d8740a633.png"
+  },
+  {
+    "id": "2",
+    "categoryId": "1",
+    "locationId": "2",
+    "name": "test name",
+    "description": "descr of item",
+    "photo": "images55ce5fd2-62b3-4938-9708-795a2937a2da.png"
+  },
+  {
+    "id": "4",
+    "categoryId": "1",
+    "locationId": "2",
+    "name": "test name",
+    "description": "descr of item",
+    "photo": "images7e7dded6-5c02-45c7-8a22-706f99fe1cf0.png"
+  }
+]

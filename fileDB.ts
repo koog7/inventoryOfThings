@@ -5,17 +5,17 @@ const location = path.join(__dirname, 'database', 'locationDB.json');
 const category = path.join(__dirname, 'database', 'categoryDB.json');
 const accounting = path.join(__dirname, 'database', 'accountingDB.json');
 
-interface Location {
+export interface Location {
     id: string;
     location: string;
     description?: string;
 }
-interface Category {
+export interface Category {
     id: string;
     category: string;
     description?: string;
 }
-interface Item {
+export interface Item {
     id: string;
     categoryId: string;
     locationId: string;
@@ -74,6 +74,27 @@ const fileDb = {
             await this.save(name);
         } else if (name === 'accounting') {
             accountingData.push(item as Item);
+            await this.save(name);
+        }
+    },
+
+    async removeItem(id: string, name: DataType) {
+        let dataArray: (Location | Category | Item)[];
+
+        if (name === 'location') {
+            dataArray = locationData;
+        } else if (name === 'category') {
+            dataArray = categoryData;
+        } else if (name === 'accounting') {
+            dataArray = accountingData;
+
+            const index = dataArray.findIndex(item => item.id === id);
+
+            if (index === -1) {
+                throw new Error('item not found');
+            }
+            dataArray.splice(index, 1);
+
             await this.save(name);
         }
     },
