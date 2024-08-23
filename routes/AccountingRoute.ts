@@ -10,9 +10,15 @@ AccountingRouter.use(express.json());
 
 AccountingRouter.get('/', async (req, res) => {
     await fileDb.init('accounting');
-    const allMessages = await fileDb.getItems('accounting');
+    const allMessages = await fileDb.getItems('accounting')|| [];
 
-    res.send(allMessages)
+    const getSpecificKeys = allMessages.map(message => {
+        if ('name' in message) {
+            return { id: message.id, name: message.name };
+        }
+    });
+
+    res.send(getSpecificKeys)
 });
 
 AccountingRouter.get('/:id', async (req, res) => {

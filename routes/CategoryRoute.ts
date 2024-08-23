@@ -8,9 +8,15 @@ CategoryRouter.use(express.json());
 CategoryRouter.get('/', async (req, res) => {
 
     await fileDb.init('category');
-    const allMessages = await fileDb.getItems('category');
+    const allMessages = await fileDb.getItems('category') || [];
 
-    res.send(allMessages)
+    const getSpecificKeys = allMessages.map(message => {
+        if ('category' in message) {
+            return { id: message.id, name: message.category };
+        }
+    });
+
+    res.send(getSpecificKeys)
 });
 
 CategoryRouter.get('/:id', async (req, res) => {

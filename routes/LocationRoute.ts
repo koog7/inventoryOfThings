@@ -8,9 +8,15 @@ LocationRouter.use(express.json());
 
 LocationRouter.get('/', async (req, res) => {
     await fileDb.init('location');
-    const allMessages = await fileDb.getItems('location');
+    const allMessages = await fileDb.getItems('location') || [];
 
-    res.send(allMessages)
+    const getSpecificKeys = allMessages.map(message => {
+        if ('location' in message) {
+            return { id: message.id, name: message.location };
+        }
+    });
+
+    res.send(getSpecificKeys)
 });
 
 LocationRouter.get('/:id', async (req, res) => {

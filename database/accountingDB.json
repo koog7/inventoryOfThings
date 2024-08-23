@@ -14,5 +14,14 @@
     "name": "test name",
     "description": "descr of item",
     "photo": "images3fb702ce-4693-43e4-b656-f8d375a1f28f.png"
+  },
+  {
+    "id": "3",
+    "categoryId": "2",
+    "locationId": "2",
+    "name": "test name",
+    "description": "descr of item",
+    "photo": "imagese955cba3-76f2-44e3-8322-8e69ea3e9e83.png",
+    "date": "12-01-2005"
   }
 ]
